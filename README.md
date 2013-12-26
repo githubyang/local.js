@@ -23,29 +23,37 @@
 ```
 使用`L`或者`local`操作：
 
-- #####添加：
-
   ```javascript
   //insert
   L.set('username', 'Joy');
-  
+  L.set('test_int', 2);
+  L.set('test_string', '3');
+  L.set('test_array', [1, 2, 3, 4]);
+  L.set('test_json', {user_id: 5, sex: 1});
+
   //get
-  L.get('username');//Joy
-  
+  L.get('username');// 'Joy'
+  L.get('test_int');// 2
+  L.get('test_string');// 3
+  L.get('test_array');// [1, 2, 3, 4]
+  L.get('test_json');// {user_id: 5, sex: 1}
+
   //append
-  L.append('username', 'chao'); //Joychao
-  
+  L.append('username', 'chao'); // 'Joychao'
+  L.append('test_int', 3); // 5 当类型为整型的时候append返回累加结果(2 + 3)
+  L.append('test_string', 3); // '33'
+
   //delete
   L.del('username');
-  
+
   L.get('username');//undefined
-  
-  //get count 
+
+  //get count
   L.length;//1
-  
+
   //clear all
   L.clear();
-  
+
   ```
 
 ### Contributing

@@ -8,6 +8,7 @@
  * @version 1.0
  */
 ;var local = (function() {
+    this.prototype = localStorage;
     if (typeof window.localStorage == 'undefined') {
         return console.log('The current browser does not support local storage');
     }
@@ -28,6 +29,10 @@
      */
     function dataId (name) {
         return 'TYPE_OF_' + name;
+    }
+
+    function getLength () {
+        return localStorage.length - 1;
     }
 
     /**
@@ -53,12 +58,21 @@
     }
 
     L = {
-        prototype: localStorage,
+
+        /**
+         * data count
+         *
+         * @type {Number}
+         */
+        length: 0,
+
         /**
          * set item
          *
          * @param {string} name
          * @param {mixed}  value
+         *
+         * @return {void}
          */
         set: function (name, value) {
             var data_type = type(value);
@@ -68,6 +82,7 @@
 
             localStorage.setItem(name, value);
             localStorage.setItem(dataId(name), data_type);
+            this.length = getLength();
         },
 
         /**
@@ -113,6 +128,7 @@
                     break;
             }
             this.set(name, data);
+            this.length = getLength();
 
             return this.get(name);
         },
@@ -122,10 +138,11 @@
          *
          * @param {string} name
          *
-         * @return {mixed}
+         * @return {void}
          */
         del: function (name) {
             localStorage.removeItem(name);
+            this.length = getLength();
         },
 
         /**
@@ -148,12 +165,14 @@
         /**
          * clear all
          *
-         * @return {boolean}
+         * @return {void}
          */
         clear: function () {
             localStorage.clear();
+            this.length = getLength();
         }
     }
+
     /* alias */
     L.add    = L.set;
     L.update = L.set;
