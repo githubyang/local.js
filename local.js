@@ -1,11 +1,11 @@
-var Local = (function() {
+var local = (function() {
     var L,
         class2type = {},
         types = "Boolean Number String Function Array Date RegExp Object Error" . split(" ");
 
     for (i in types) {
         class2type["[object " + types[i] + "]"] = types[i].toLowerCase()
-    };
+    }
 
     /**
      * get data store id
@@ -41,7 +41,7 @@ var Local = (function() {
     }
 
     L = {
-
+        prototype: localStorage,
         /**
          * set item
          *
@@ -131,7 +131,6 @@ var Local = (function() {
         get: function (name) {
             var data      = localStorage.getItem(name);
             var data_type = localStorage.getItem(dataId(name));
-            error(data_type);
             if (data_type != 'string') {
                 return JSON.parse(data);
             }
@@ -146,7 +145,7 @@ var Local = (function() {
          */
         clear: function () {
             return localStorage.clear();
-        },
+        }
     }
 
     L.add    = L.set;
@@ -154,8 +153,7 @@ var Local = (function() {
 
     return L;
 
-})(Local);
+})();
 
-window.local = Local;
-window.Local = Local;
-window.L = Local;
+window.local = local;
+window.L = local;
