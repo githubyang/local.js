@@ -1,4 +1,16 @@
-var local = (function() {
+/**
+ * local.js
+ *
+ * Enhanced local storage capabilities to support multiple data types.
+ *
+ * @author  Joy <anzhengchao@gmail.com>
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ * @version 1.0
+ */
+;var local = (function() {
+    if (typeof window.localStorage == 'undefined') {
+        return console.log('The current browser does not support local storage');
+    }
     var L,
         class2type = {},
         types = "Boolean Number String Function Array Date RegExp Object Error" . split(" ");
@@ -56,8 +68,6 @@ var local = (function() {
 
             localStorage.setItem(name, value);
             localStorage.setItem(dataId(name), data_type);
-
-            return value;
         },
 
         /**
@@ -102,10 +112,9 @@ var local = (function() {
                     data[key] = value;
                     break;
             }
+            this.set(name, data);
 
-            this.set(data);
-
-            return data;
+            return this.get(name);
         },
 
         /**
@@ -117,8 +126,6 @@ var local = (function() {
          */
         del: function (name) {
             localStorage.removeItem(name);
-
-            return name;
         },
 
         /**
@@ -144,15 +151,14 @@ var local = (function() {
          * @return {boolean}
          */
         clear: function () {
-            return localStorage.clear();
+            localStorage.clear();
         }
     }
-
+    /* alias */
     L.add    = L.set;
     L.update = L.set;
 
     return L;
-
 })();
 
 window.local = local;
