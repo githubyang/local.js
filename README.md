@@ -49,12 +49,14 @@
   L.get('username');//undefined
 
   //get count
-  L.length;//1
+  L.length;//5
 
   //clear all
   L.clear();
+  L.length;//0
 
   ```
+注意：`append` 在原值为数字类型的情况下返回累加结果而不是字符串拼接
 
 ### Contributing
 
