@@ -16,10 +16,10 @@
 
 ### User Guide
 
-引入 `local.js`:
+下载并引入 `local.js`:
 
 ```html
-<script type="text/javascript" src="https://raw.github.com/joychao/local.js/master/local.js"></script>
+<script type="text/javascript" src="js/local.js"></script>
 ```
 使用`L`或者`local`操作：
 
