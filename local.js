@@ -1,8 +1,43 @@
 var Local = (function() {
-    var L;
+    var L,
+        class2type = {},
+        types = "Boolean Number String Function Array Date RegExp Object Error" . split(" ");
 
-    function getTypeId (name) {
+    for (i in types) {
+        class2type["[object " + types[i] + "]"] = types[i].toLowerCase()
+    };
+
+    /**
+     * get data store id
+     *
+     * @param {string} name
+     *
+     * @return {string}
+     */
+    function dataId (name) {
         return 'TYPE_OF_' + name;
+    }
+
+    /**
+     * get data type
+     *
+     * @param {mixed} obj
+     *
+     * @return {string}
+     */
+    function type (obj) {
+        return obj == null ? String(obj) : class2type[toString.call(obj)] || "object"
+    }
+
+    /**
+     * error log
+     *
+     * @param {string} info
+     *
+     * @return {void}
+     */
+    function error (info) {
+        return console.log(info);
     }
 
     L = {
@@ -14,16 +49,16 @@ var Local = (function() {
          * @param {mixed}  value
          */
         set: function (name, value) {
-            var data_type = typeof value;
-            if ( data_type != 'string') {
+            var data_type = type(value);
+            if (data_type != 'string') {
                 value = JSON.stringify(value);
             }
 
             localStorage.setItem(name, value);
-            localStorage.setItem(getTypeId(name), data_type);
+            localStorage.setItem(dataId(name), data_type);
 
             return value;
-        }
+        },
 
         /**
          * append to item
@@ -35,26 +70,40 @@ var Local = (function() {
          * @return {mixed}
          */
         append: function (name, key, value) {
-            var data = this.get(name), type = this.get(getTypeId(name));
+            var data = this.get(name), data_type = localStorage.getItem(dataId(name));
 
-            if (arguments.length > 2) {
+            if (arguments.length <= 2) {
                 value = key;
                 key = undefined;
+            } else if (type(key) != 'number' || type(key) != 'string') {
+                return error('Wrong type of key name');
             }
 
-            if (typeof value == 'string' && type == 'string') {
-                data = data + value;
-            } else if (key && ) {
+            switch (data_type) {
+                case 'string':
+                case 'number':
+                    if (type(value) != 'string' && type(value) != 'number') {
+                        return error('Strings and string concatenation only. typeof value:' + type(value));
+                    }
 
+                    data = data + value;
+                    break;
+                case 'array':
+                    if (arguments.length > 2) {
+                        return error('Wrong number of arguments, the array will only accept two parameters.');
+                    }
+                    data.push(value);
+                    break;
+                case 'object':
+                    if (arguments.length <= 2) {
+                        return error('Wrong number of arguments, the object will only accept three parameters.');
+                    }
+
+                    data[key] = value;
+                    break;
             }
 
-            if (arguments.length > 2) {
-                data[appendName] = appendValue;
-            } else {
-                data.push(appendName);
-            }
-
-            setData(data);
+            this.set(data);
 
             return data;
         },
@@ -80,8 +129,9 @@ var Local = (function() {
          * @return {mixed}
          */
         get: function (name) {
-            var data = localStorage.getItem(name);
-            var data_type = localStorage.getItem(getTypeId(name));
+            var data      = localStorage.getItem(name);
+            var data_type = localStorage.getItem(dataId(name));
+            error(data_type);
             if (data_type != 'string') {
                 return JSON.parse(data);
             }
@@ -97,10 +147,10 @@ var Local = (function() {
         clear: function () {
             return localStorage.clear();
         },
-
-        add: this.set,
-        update: this.set,
     }
+
+    L.add    = L.set;
+    L.update = L.set;
 
     return L;
 
