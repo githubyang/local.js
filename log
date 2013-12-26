@@ -1,0 +1,2 @@
+#!/bin/bash
+git log  --pretty=format:'<li> <a href="http://github.com/joychao/local.js/commit/%H">view commit &bull;</a> %s</li> ' --reverse | grep "#changelog" >> CHANGELOG.md
