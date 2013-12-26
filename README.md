@@ -18,7 +18,7 @@
 
 引入 `local.js`:
 
-```
+```html
 <script type="text/javascript" src="https://raw.github.com/joychao/local.js/master/local.js"></script>
 ```
 
