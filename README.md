@@ -21,9 +21,34 @@
 ```html
 <script type="text/javascript" src="https://raw.github.com/joychao/local.js/master/local.js"></script>
 ```
+使用`L`或者`local`操作：
 
+- #####添加：
 
-### Contributing
+  ```javascript
+  //insert
+  L.set('username', 'Joy');
+  
+  //get
+  L.get('username');//Joy
+  
+  //append
+  L.append('username', 'chao'); //Joychao
+  
+  //delete
+  L.del('username');
+  
+  L.get('username');//undefined
+  
+  //get count 
+  L.length;//1
+  
+  //clear all
+  L.clear();
+  
+  ```
+
+- ### Contributing
 
 欢迎各位踊跃贡献代码以修正它的不足，进一步完善这个插件。
 
