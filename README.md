@@ -3,8 +3,8 @@
 
 # local.js
 
- * Author: Joy <anzhengchao@gmail.com>
- * Author Blog :[www.joychao.cc](www.joychao.cc)
+ * Author：Joy <anzhengchao@gmail.com>
+ * Author Blog：[www.joychao.cc](www.joychao.cc)
 
 ### Overview
 
