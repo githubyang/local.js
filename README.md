@@ -48,7 +48,7 @@
   
   ```
 
-- ### Contributing
+### Contributing
 
 欢迎各位踊跃贡献代码以修正它的不足，进一步完善这个插件。
 
@@ -63,5 +63,3 @@
 
 报告任何错误，问题，意见或寻求帮助 - [Issues page](https://github.com/joychao/local.js/issues).
 
-
-### Changelog
